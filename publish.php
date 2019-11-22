@@ -7,17 +7,7 @@
 <link href="https://how2j.cn/study/css/bootstrap/3.3.6/bootstrap.min.css" rel="stylesheet">
 <script src="https://how2j.cn/study/js/bootstrap/3.3.6/bootstrap.min.js"></script>
 <body>
-<h1>留言板</h1>
-<div><a href="publish.php" rel="external nofollow" >发布信息</a></div>
-<div><a href="cancellation.php" rel="external nofollow" rel="external nofollow" onclick=" return confirm('注销当前用户？')">注销登入</a></div>
- <table class="table table-striped">
-  <thead>
-     <th>用户名</th>
-     <th>发布时间</th>
-     <th>内容</th>
-  </thead>
-  <tbody>
-
+<h1>发布信息</h1>
  <?php
  session_start();
  if(empty($_SESSION["user"]))
@@ -30,16 +20,13 @@
  $sql = "select name from emp WHERE user = '{$user}'";
  $resutl=mysqli_query($mysqli,$sql);
  $row=mysqli_fetch_assoc($resutl);
- echo "<h5>欢迎宁:{$row['name']}</h5>";
- $sql = "select * from message";
- $resutl=mysqli_query($mysqli,$sql);
- while($row=mysqli_fetch_assoc($resutl)){
-	 echo '<tr><td>'.$row['name'].'</td>';
-	 echo '<td>'.$row['time'].'</td>';
-	 echo '<td>'.$row['content'].'</td></tr>';
- }
  ?>
- </tbody>
+ <form action="published.php" method="post">
+ <span class="text-muted">留言内容：</span><textarea name="content" class="form-control"></textarea>
+ <br/>
+ <input type="submit" value="提交" class="btn btn-default"><input type="reset" value="清空" class="btn btn-default">
+ <br/><a href="index.php" rel="external nofollow" >查看留言</a>
+ </form>
 </table>
 </body>
 </html>
